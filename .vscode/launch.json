@@ -5,18 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "node",
+            "name": "Attach",
+            "port": 9229,
             "request": "attach",
-            "protocol": "inspector",
-            "restart": true,
-            "name": "Debug",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${file}",
-            "outFiles": [
-                "${workspaceFolder}/**/*.js"
-            ]
+            "type": "pwa-node"
         }
     ]
 }
