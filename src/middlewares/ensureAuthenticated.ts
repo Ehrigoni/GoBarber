@@ -3,6 +3,12 @@ import { verify } from 'jsonwebtoken';
 
 import authConfig from '../config/auth';
 
+interface TokenPayload {
+    iat: number;
+    exp: number;
+    sub: string;
+}
+
 export default function ensureAuthenticated(
     request: Request,
     response: Response,
@@ -14,16 +20,19 @@ export default function ensureAuthenticated(
     if (!authHeader){
         throw new Error('JWT token is missing');
     }
-
-    const [, token] = authHeader.split('');
+    const [, token] = authHeader.split(' ');
 
     try {
         const decoded = verify(token, authConfig.jwt.secret);
         
-        console.log(decoded);
+        const { sub } = decoded as TokenPayload;
+
+        request.user = {
+            id: sub,
+        }
 
         return next();
-    } catch (err) {
+    } catch {
         throw new Error('Invalid JWT Token');
     }
 }
