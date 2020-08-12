@@ -10,10 +10,10 @@ import {
 
 import User from './User';
 
-interface AppointmentConstructor {
-    provider: string;
-    date: Date;
-}
+//interface AppointmentConstructor {
+//    provider: string;
+//    date: Date;
+//}
 
 @Entity('appointments')
 class Appointment {
